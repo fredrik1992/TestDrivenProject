@@ -3,6 +3,8 @@ package com.example.projectreal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HandleLoginTest {
@@ -20,5 +22,12 @@ public class HandleLoginTest {
     @Test
     void test_register_new_account() {
         assertTrue(handleLogin.registerNewAccount("fredriks","lady2005")); //Checks if the new user can login
+    }
+    @Test
+    void test_password_is_encrypted() throws userDoesNotExistExpection {
+        handleLogin.registerNewAccount("fredriks","lady2005");
+        User account = handleLogin.getAccountData("fredriks","lady2005");
+        assertTrue(account.getPassword()!= "lady2005");
+
     }
 }
