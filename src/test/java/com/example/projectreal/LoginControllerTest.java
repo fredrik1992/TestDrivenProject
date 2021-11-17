@@ -2,16 +2,18 @@ package com.example.projectreal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.bind.annotation.RestController;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
+@SpringBootTest
 public class LoginControllerTest {
-    LoginController loginController;
+    @Autowired LoginController loginController;
+
     @BeforeEach
     void setUp() {
-        loginController = new LoginController();
+
 
     }
 
@@ -22,7 +24,7 @@ public class LoginControllerTest {
     }
     @Test
     void test_register_new_account() {
-        assertTrue(loginController.registerNewAccount("fredrik2","lady2005")); //Checks if the new user can login
+        assertTrue(loginController.registerNewAccount("fredrik","lady2005")); //Checks if the new user can login
     }
 
 }
