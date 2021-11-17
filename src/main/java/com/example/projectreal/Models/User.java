@@ -1,4 +1,4 @@
-package com.example.projectreal;
+package com.example.projectreal.Models;
 
 import org.mortbay.jetty.security.Password;
 

@@ -1,4 +1,6 @@
 package com.example.projectreal;
+import com.example.projectreal.Controller.LoginController;
+import com.example.projectreal.Models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

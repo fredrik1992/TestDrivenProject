@@ -1,7 +1,10 @@
-package com.example.projectreal;
+package com.example.projectreal.Controller;
 
 
 
+import com.example.projectreal.Models.User;
+import com.example.projectreal.UserService;
+import com.example.projectreal.Expections.userDoesNotExistExpection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
