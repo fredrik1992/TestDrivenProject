@@ -1,5 +1,6 @@
 package com.example.projectreal;
 import com.example.projectreal.Controller.LoginController;
+import com.example.projectreal.Expections.userDoesNotExistExpection;
 import com.example.projectreal.Models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,11 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 public class UserServiceTest {
     @Autowired UserService userService;
-    LoginController loginController;
+    @Autowired LoginController loginController;
     @BeforeEach
     void setUp() {
 
@@ -32,6 +34,24 @@ public class UserServiceTest {
         userService.addUser(user);
         assertEquals("fredrik",userService.getUser("fredrik").getUsername());
     }
+
+    @Test
+    void test_get_user_token_success(){ // will be adding user specific token here later ?
+
+        User user = new User("fredrik","lady2005");
+        userService.getUserToken(user);
+        assertTrue((userService.getUserToken(user) instanceof String));
+    }
+
+    @Test
+    void test_login_authentication_success() {
+        loginController.registerNewAccount("fredrik","lady2005");
+        User user = userService.getUser("fredrik");
+        assertTrue(userService.login_verification(user,"lady2005")); //simulates some1 entering username the
+    }
+
+
+
 
 
 

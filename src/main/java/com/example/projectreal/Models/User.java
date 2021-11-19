@@ -2,6 +2,8 @@ package com.example.projectreal.Models;
 
 import org.mortbay.jetty.security.Password;
 
+
+//@Value maby add this later ?
 public class User {
     private String username;
     private String password;
