@@ -3,11 +3,14 @@ import com.example.projectreal.Controller.LoginController;
 import com.example.projectreal.Expections.WrongPasswordExpection;
 import com.example.projectreal.Expections.userDoesNotExistExpection;
 import com.example.projectreal.Models.User;
+import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContextException;
+
+import java.io.UnsupportedEncodingException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,7 +26,7 @@ public class LoginControllerTest {
     }
 //https://metamug.com/article/security/jwt-java-tutorial-create-verify.html
     @Test
-    void test_login_authentication_success() throws userDoesNotExistExpection, WrongPasswordExpection {
+    void test_login_authentication_success() throws userDoesNotExistExpection, WrongPasswordExpection, JSONException, UnsupportedEncodingException {
         loginController.registerNewAccount("fredrik","lady2005");
         assertTrue(loginController.login_check("fredrik","lady2005") instanceof String); //simulates some1 entering username the
     }

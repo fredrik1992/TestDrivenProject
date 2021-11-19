@@ -6,9 +6,12 @@ import com.example.projectreal.Expections.WrongPasswordExpection;
 import com.example.projectreal.Expections.userDoesNotExistExpection;
 import com.example.projectreal.Models.User;
 import com.example.projectreal.UserService;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.UnsupportedEncodingException;
 
 @RestController
 public class LoginController {
@@ -19,18 +22,22 @@ public class LoginController {
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @GetMapping("/loginControl")
-    public String login_check(@RequestParam String username, @RequestParam String password) throws userDoesNotExistExpection, WrongPasswordExpection {
+    public String login_check(@RequestParam String username, @RequestParam String password) throws userDoesNotExistExpection, WrongPasswordExpection, JSONException, UnsupportedEncodingException {
         registerNewAccount("fredrik","lady2005"); //mock user for testing live
         User user = userService.getUser(username);
+        String userToken = null;
         if (user == null) {
             throw new userDoesNotExistExpection("userDoseNotExists");
         }
 
         if (userService.login_verification(user,password)){
-            userService.getUserToken(user);
-            return "WelcomePage.html";
+
+            userToken = userService.getUserToken(user);
+            return userToken;
+            //needs to send token here into website
 
         }
+
         throw new WrongPasswordExpection("wrongPassword");
 
     }

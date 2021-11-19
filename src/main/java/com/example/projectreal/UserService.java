@@ -1,10 +1,12 @@
 package com.example.projectreal;
 
 import com.example.projectreal.Models.User;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
 import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +25,7 @@ public class UserService { //should be service ?
         users.put(user.getUsername(),user);
     }
 
-    public String getUserToken(User user) {
+    public String getUserToken(User user) throws JSONException, UnsupportedEncodingException {
 
         return securityService.generateUserToken(user);
     }

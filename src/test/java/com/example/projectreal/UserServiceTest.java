@@ -2,10 +2,13 @@ package com.example.projectreal;
 import com.example.projectreal.Controller.LoginController;
 import com.example.projectreal.Expections.userDoesNotExistExpection;
 import com.example.projectreal.Models.User;
+import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.io.UnsupportedEncodingException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -36,7 +39,7 @@ public class UserServiceTest {
     }
 
     @Test
-    void test_get_user_token_success(){ // will be adding user specific token here later ?
+    void test_get_user_token_success() throws JSONException, UnsupportedEncodingException { // will be adding user specific token here later ?
 
         User user = new User("fredrik","lady2005");
         userService.getUserToken(user);
