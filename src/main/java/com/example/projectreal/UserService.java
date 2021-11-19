@@ -7,22 +7,23 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
-import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class UserService { //should be service ?
+public class UserService {
+
     Map<String, User> users = new HashMap<>();
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-    @Autowired SecurityService securityService;
+    @Autowired
+    SecurityService securityService;
 
     public User getUser(String username) {
         return users.get(username);
     }
 
     public void addUser(User user) {
-        users.put(user.getUsername(),user);
+        users.put(user.getUsername(), user);
     }
 
     public String getUserToken(User user) throws JSONException, UnsupportedEncodingException {
@@ -30,12 +31,11 @@ public class UserService { //should be service ?
         return securityService.generateUserToken(user);
     }
 
-    public boolean login_verification(User user,String password) {
+    public boolean login_verification(User user, String password) {
+        return (encoder.matches(password, user.getPassword())) ? true : false;
+    }
 
-        if (encoder.matches(password, user.getPassword())){
-            return true;
-        }
-        return false;
-
+    public void setUsers(Map<String, User> users) {
+        this.users = users;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.projectreal.Controller;
 
-
+/* handles login/register requests and uses userservice to handle
+ verification and getting of data  */
 
 import com.example.projectreal.Expections.WrongPasswordExpection;
 import com.example.projectreal.Expections.userDoesNotExistExpection;
@@ -16,30 +17,24 @@ import java.io.UnsupportedEncodingException;
 @RestController
 public class LoginController {
 
-
     @Autowired
     private UserService userService;
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @GetMapping("/loginControl")
     public String login_check(@RequestParam String username, @RequestParam String password) throws userDoesNotExistExpection, WrongPasswordExpection, JSONException, UnsupportedEncodingException {
-        registerNewAccount("fredrik","lady2005"); //mock user for testing live
+        registerNewAccount("fredrik", "lady2005"); //mock user for testing live
         User user = userService.getUser(username);
         String userToken = null;
         if (user == null) {
             throw new userDoesNotExistExpection("userDoseNotExists");
-        }
-
-        if (userService.login_verification(user,password)){
+        } else if (userService.login_verification(user, password)) {
 
             userToken = userService.getUserToken(user);
             return userToken;
             //needs to send token here into website
 
-        }
-
-        throw new WrongPasswordExpection("wrongPassword");
-
+        } else throw new WrongPasswordExpection("wrongPassword");
     }
 
     @PostMapping("registerUser")
@@ -55,7 +50,6 @@ public class LoginController {
         }
         return false;
     }
-
 
 
 }

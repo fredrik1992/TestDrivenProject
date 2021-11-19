@@ -10,14 +10,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.io.UnsupportedEncodingException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 @SpringBootTest
 public class SecurityServiceTest {
-    @Autowired UserService userService;
-    @Autowired SecurityService securityService;
+    @Autowired
+    UserService userService;
+    @Autowired
+    SecurityService securityService;
     User user;
+
     @BeforeEach
     void setUp() {
-        user = new User("fredrik","lady2005");
+        user = new User("fredrik", "lady2005");
     }
 
     @Test
@@ -33,6 +37,7 @@ public class SecurityServiceTest {
         assertTrue(securityService.verifyToken(token));
 
     }
+
 
 //https://stormpath.com/blog/beginners-guide-jwts-in-java
 }
