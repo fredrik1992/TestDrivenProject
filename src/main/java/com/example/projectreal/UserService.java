@@ -1,5 +1,7 @@
 package com.example.projectreal;
 
+import com.example.projectreal.Interface.Rights;
+import com.example.projectreal.Interface.Sources;
 import com.example.projectreal.Models.User;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +39,9 @@ public class UserService {
 
     public void setUsers(Map<String, User> users) {
         this.users = users;
+    }
+
+    public void addPriviligeToUser(User user, Sources source, Rights right) {
+        user.addPrivilige(source,right);
     }
 }

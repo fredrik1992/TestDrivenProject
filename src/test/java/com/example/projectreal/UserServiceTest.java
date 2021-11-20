@@ -1,7 +1,8 @@
 package com.example.projectreal;
 
 import com.example.projectreal.Controller.LoginController;
-import com.example.projectreal.Expections.userDoesNotExistExpection;
+import com.example.projectreal.Interface.Rights;
+import com.example.projectreal.Interface.Sources;
 import com.example.projectreal.Models.User;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -23,7 +25,7 @@ public class UserServiceTest {
 
     @BeforeEach
     void setUp() {
-
+        userService.setUsers(new HashMap<>());
     }
 
     @Test
@@ -52,11 +54,32 @@ public class UserServiceTest {
     }
 
     @Test
-    void test_login_authentication_success() {
+    void test_login_verification_success() {
         loginController.registerNewAccount("fredrik", "lady2005");
         User user = userService.getUser("fredrik");
         assertTrue(userService.login_verification(user, "lady2005")); //simulates some1 entering username the
     }
+
+    @Test
+    void test_add_user_privilige_success() {
+        loginController.registerNewAccount("fredrik", "lady2005");
+        User user = userService.getUser("fredrik");
+        userService.addPriviligeToUser(user,Sources.ADMINPAGE, Rights.WRITE);
+        assertTrue(user.hasPriviligeAndRight(Sources.ADMINPAGE,Rights.WRITE));
+
+    }
+    @Test
+    void check_user_privilige_for_specific_source() {
+        loginController.registerNewAccount("fredrik", "lady2005");
+        User user = userService.getUser("fredrik");
+        userService.addPriviligeToUser(user,Sources.ADMINPAGE, Rights.WRITE);
+        assertTrue(user.getRights(Sources.ADMINPAGE) instanceof Rights );
+
+    }
+
+
+
+
 
 
 }

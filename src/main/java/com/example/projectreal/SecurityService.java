@@ -18,7 +18,7 @@ public class SecurityService {
 
     public String generateUserToken(User user) throws JSONException, UnsupportedEncodingException {
         String jwt = Jwts.builder()
-                .claim("name", "Robert Token Man")
+                .claim("username", user.getUsername())
                 .signWith(
                         SignatureAlgorithm.HS256,
                         "secret".getBytes("UTF-8")
@@ -28,13 +28,23 @@ public class SecurityService {
     }
 
 
-    public boolean verifyToken(String token) throws UnsupportedEncodingException {
+    public boolean verifyToken(User user,String token) throws UnsupportedEncodingException {
         String jwt = token;
         Jws<Claims> claims = Jwts.parser()
                 .setSigningKey("secret".getBytes("UTF-8"))
                 .parseClaimsJws(jwt);
-        String scope = (String) claims.getBody().get("name");
-        return (scope.equals("Robert Token Man")) ? true : false;
+        String scope = (String) claims.getBody().get("username");
+        return (scope.equals(user.getUsername())) ? true : false;
 
+    }
+
+    public String getTokenUsername(String token) throws UnsupportedEncodingException {
+        String jwt = token;
+        Jws<Claims> claims = Jwts.parser()
+                .setSigningKey("secret".getBytes("UTF-8"))
+                .parseClaimsJws(jwt);
+        String scope = (String) claims.getBody().get("username");
+        System.out.println(scope);
+        return scope;
     }
 }
