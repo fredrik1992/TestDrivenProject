@@ -34,6 +34,7 @@ public class UserService {
     }
 
     public boolean login_verification(User user, String password) {
+
         return (encoder.matches(password, user.getPassword())) ? true : false;
     }
 

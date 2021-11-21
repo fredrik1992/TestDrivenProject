@@ -20,11 +20,13 @@ public class SecurityServiceTest {
     @Autowired
     SecurityService securityService;
     User user;
-
+    String token;
     @BeforeEach
-    void setUp() {
+    void setUp() throws JSONException, UnsupportedEncodingException {
         user = new User("fredrik", "lady2005");
         userService.addUser(user);
+        token = securityService.generateUserToken(user);
+        userService.addPriviligeToUser(user, Sources.ADMINPAGE, Rights.WRITE);
     }
 
     @Test
@@ -49,11 +51,9 @@ public class SecurityServiceTest {
 
     @Test
     void get_user_privilige_from_source_and_token() throws JSONException, UnsupportedEncodingException {
-        String token = securityService.generateUserToken(user);
-        userService.addPriviligeToUser(user, Sources.ADMINPAGE, Rights.WRITE);
         String username = securityService.getTokenUsername(token);
         User foundUser = userService.getUser(username);
-        assertTrue(user.getRights(Sources.ADMINPAGE) instanceof Rights );
+        assertTrue(foundUser.getRights(Sources.ADMINPAGE) instanceof Rights );
 
     }
 
