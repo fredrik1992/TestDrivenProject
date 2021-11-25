@@ -38,7 +38,7 @@ public class UserServiceTest {
     }
 
     @Test
-    void test_add_user() { // need to fix null value
+    void test_add_user() {
 
         User user = new User("fredrik", "lady2005");
         userService.addUser(user);
@@ -46,7 +46,7 @@ public class UserServiceTest {
     }
 
     @Test
-    void test_get_user_token_success() throws JSONException, UnsupportedEncodingException { // will be adding user specific token here later ?
+    void test_get_user_token_success() throws JSONException, UnsupportedEncodingException {
 
         User user = new User("fredrik", "lady2005");
         userService.getUserToken(user);
@@ -55,14 +55,14 @@ public class UserServiceTest {
 
     @Test
     void test_login_verification_success() {
-        loginController.registerNewAccount("fredrik", "lady2005");
+        loginController.registerUser("fredrik", "lady2005");
         User user = userService.getUser("fredrik");
-        assertTrue(userService.login_verification(user, "lady2005")); //simulates some1 entering username the
+        assertTrue(userService.login_verification(user, "lady2005"));
     }
 
     @Test
     void test_add_user_privilige_success() {
-        loginController.registerNewAccount("fredrik", "lady2005");
+        loginController.registerUser("fredrik", "lady2005");
         User user = userService.getUser("fredrik");
         userService.addPriviligeToUser(user,Sources.ADMINPAGE, Rights.WRITE);
         assertTrue(user.hasPriviligeAndRight(Sources.ADMINPAGE,Rights.WRITE));
@@ -70,7 +70,7 @@ public class UserServiceTest {
     }
     @Test
     void check_user_privilige_for_specific_source() {
-        loginController.registerNewAccount("fredrik", "lady2005");
+        loginController.registerUser("fredrik", "lady2005");
         User user = userService.getUser("fredrik");
         userService.addPriviligeToUser(user,Sources.ADMINPAGE, Rights.WRITE);
         assertTrue(user.getRights(Sources.ADMINPAGE) instanceof Rights );

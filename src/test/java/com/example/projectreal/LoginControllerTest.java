@@ -3,7 +3,6 @@ package com.example.projectreal;
 import com.example.projectreal.Controller.LoginController;
 import com.example.projectreal.Expections.WrongPasswordExpection;
 import com.example.projectreal.Expections.UserDoesNotExistExpection;
-import com.example.projectreal.Models.User;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,7 +29,7 @@ public class LoginControllerTest {
     //https://metamug.com/article/security/jwt-java-tutorial-create-verify.html
     @Test
     void test_login_authentication_success() throws UserDoesNotExistExpection, WrongPasswordExpection, JSONException, UnsupportedEncodingException {
-        loginController.registerNewAccount("fredrik", "lady2005");
+        loginController.registerUser("fredrik", "lady2005");
         assertTrue(loginController.login_check("fredrik", "lady2005") instanceof String); //simulates some1 entering username the
     }
 
@@ -50,13 +49,13 @@ public class LoginControllerTest {
 
     @Test
     void test_register_new_account_success() {
-        assertTrue(loginController.registerNewAccount("fredrik", "lady2005"));
+        assertTrue(loginController.registerUser("fredrik", "lady2005"));
     }
 
     @Test
     void test_register_new_account_user_exists() {//checks if user allredy exists maby add expections
-        loginController.registerNewAccount("fredrik", "lady2005");
-        assertTrue(!loginController.registerNewAccount("fredrik", "lady2005"));
+        loginController.registerUser("fredrik", "lady2005");
+        assertTrue(!loginController.registerUser("fredrik", "lady2005"));
     }
 
 

@@ -16,6 +16,7 @@ import java.util.Map;
 public class UserService {
 
     Map<String, User> users = new HashMap<>();
+
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     @Autowired
     SecurityService securityService;
@@ -38,6 +39,18 @@ public class UserService {
         return (encoder.matches(password, user.getPassword())) ? true : false;
     }
 
+    public boolean registerNewAccount(String username, String password) {
+
+        if (getUser(username) == null) {
+            String hashedPassword = encoder.encode(password);
+            User newUser = new User(username, hashedPassword);
+
+            addUser(newUser);
+
+            return true;
+        }
+        return false;
+    }
     public void setUsers(Map<String, User> users) {
         this.users = users;
     }

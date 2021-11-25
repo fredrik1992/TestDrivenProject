@@ -19,11 +19,10 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
-    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @GetMapping("/loginControl")
     public String login_check(@RequestParam String username, @RequestParam String password) throws UserDoesNotExistExpection, WrongPasswordExpection, JSONException, UnsupportedEncodingException {
-        registerNewAccount("fredrik", "lady2005"); //mock user for testing live
+        registerUser("fredrik", "lady2005"); //mock user for testing live
         User user = userService.getUser(username);
         String userToken = null;
         if (user == null) {
@@ -38,17 +37,9 @@ public class LoginController {
     }
 
     @PostMapping("registerUser")
-    public boolean registerNewAccount(String username, String password) {
+    public boolean registerUser(String username, String password) {
+           return userService.registerNewAccount(username,password);
 
-        if (userService.getUser(username) == null) {
-            String hashedPassword = encoder.encode(password);
-            User newUser = new User(username, hashedPassword);
-
-            userService.addUser(newUser);
-
-            return true;
-        }
-        return false;
     }
 
 
